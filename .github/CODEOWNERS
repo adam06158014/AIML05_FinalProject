@@ -1,0 +1,12 @@
+# CODEOWNERS
+/.github/CODEOWNERS @adam06158014
+
+# Front End
+/src/main/webapp/ @j963214765
+
+# Back End
+/src/main/java/*.java @hsin0316
+
+# Database
+/sql_csv/ @BAICOIUUHGRHBOIH
+/src/main/java/database/ @BAICOIUUHGRHBOIH

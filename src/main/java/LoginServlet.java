@@ -52,24 +52,24 @@ public class LoginServlet extends HttpServlet {
 		// 判斷依據
 		// if((rightid.equals(id) && rightpasswd.equals(password))) {
 		if (isValidUser) {
-			System.out.println("Login Sucess");
+			System.out.println("Login Successful");
 			System.out.println("userid:" + id); // server
 			System.out.println("userpasswd:" + password); // server
 
 			// 調派請求,共享資料
 			request.setAttribute("userid", id); // 將正確的id存入
-			request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
-//			out.write("<h5>Login successful! Redirecting to the other page...</h5>");
-//			out.write("<meta http-equiv='refresh' content='3;URL=index.jsp'>"); //3s後跳轉至index
+			//request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
+			out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
+			out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>"); //2s後跳轉至RobotController
 		}
 
 		else {
-			System.out.println("Login Fail");
+			System.out.println("Login Failed");
 			System.out.println("userid:" + id); // server
 			System.out.println("userpasswd:" + password); // server
 
-			out.write("<h5>Please log in again!</h5>"); // for user跳轉頁面
-			out.write("<a href = '/AIML05FinalProject/webapp/index.jsp'>back to login page</a>"); // user能重回登入頁面
+			out.write("<h3>Please login again!</h3>"); // for user跳轉頁面
+			out.write("<a href='index.jsp'>back to login page</a>"); // user能重回登入頁面
 		}
 
 		out.close();
