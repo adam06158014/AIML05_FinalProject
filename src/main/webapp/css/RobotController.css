@@ -1,0 +1,97 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/* 導覽列設定 */
+header {
+	height: 70px;
+	/* 設置 header 的高度 */
+	border-bottom: 1px solid gray;
+	/* 設置 header 底部的邊框 */
+	border-bottom-left-radius: 20px;
+	/* 設置左下角的圓角 */
+	border-bottom-right-radius: 20px;
+	/* 設置右下角的圓角 */
+	display: flex;
+	/* 使用 flex 布局 */
+	justify-content: space-around;
+	/* 子元素在主軸上均勻分布 */
+	align-items: center;
+	/* 子元素在交叉軸上居中對齊 */
+	font-weight: 900;
+	/* 設置字體粗細 */
+	font-size: 20px;
+	/* 設置字體大小 */
+	margin: auto;
+	/* 設置自動外邊距 */
+}
+
+/* MENU設定 */
+nav ul {
+	list-style-type: none;
+	/* 移除列表的點 */
+	display: flex;
+	/* 使用 flex 布局 */
+	color: #666;
+	/* 設置文字顏色 */
+}
+
+nav li {
+	padding: 0 20px;
+	/* 設置左右內邊距 */
+	border-right: 1px solid #666;
+	/* 設置右邊框 */
+}
+
+nav li:last-child {
+	border-right: 0;
+	/* 移除最後一個項目的右邊框 */
+}
+
+header a {
+	color: #666;
+	/* 設置連結的文字顏色 */
+	text-decoration: none;
+	/* 移除連結的下劃線 */
+}
+
+/* 表格樣式 */
+table {
+	width: 100%;
+	/* 設置表格寬度為 100% */
+	border-collapse: collapse;
+	/* 合併邊框 */
+	text-align: left;
+	/* 設置文字左對齊 */
+}
+
+th,
+td {
+	padding: 10px;
+	/* 設置內邊距 */
+	border: 1px solid #ddd;
+	/* 設置邊框 */
+	text-align: left;
+	/* 設置文字左對齊 */
+}
+
+/* 按鈕樣式 */
+button {
+	padding: 20px;
+	/* 設置內邊距 */
+	margin: 10px;
+	/* 設置外邊距 */
+	font-size: 20px;
+	/* 設置字體大小 */
+}
+
+/* 頁腳樣式 */
+footer {
+	text-align: right;
+	/* 設置文字右對齊 */
+	background-color: #fcc89b;
+	/* 設置背景顏色 */
+	padding: 10px;
+	/* 設置內邊距 */
+}
