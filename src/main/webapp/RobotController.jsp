@@ -34,8 +34,7 @@
 			<option value="102">Human resource</option>
 			<option value="103">Research and development</option>
 			<option value="104">Sale</option>
-		</select><br>
-		<br>
+		</select><br> <br>
 
 		<!-- 收件人部門選擇 -->
 		<label for="recipientDepartment">收件人部門:</label> <select
@@ -45,8 +44,7 @@
 			<option value="102">Human resource</option>
 			<option value="103">Research and development</option>
 			<option value="104">Sale</option>
-		</select><br>
-		<br>
+		</select><br> <br>
 
 		<!-- 呼叫按鈕 -->
 		<button type="button" class="submit-btn" onclick="sendRobotCommand()">呼叫</button>
