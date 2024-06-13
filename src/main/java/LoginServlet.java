@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -39,13 +40,13 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			String correct_ps = API_for_robot.findPasswordByEmployeeId(Integer.parseInt(id));
-			
+
 			if (correct_ps != null && correct_ps.equals(password)) {
 				isValidUser = true;
-				
+
 			}
 		} catch (Exception e) {
-			
+
 			e.printStackTrace(); // 捕捉並處理異常
 		}
 
@@ -58,9 +59,20 @@ public class LoginServlet extends HttpServlet {
 
 			// 調派請求,共享資料
 			request.setAttribute("userid", id); // 將正確的id存入
-			//request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
-			out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
-			out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>"); //2s後跳轉至RobotController
+			request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
+			// out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
+			// out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>");
+			// //2s後跳轉至RobotController
+			// 獲取前端JSON資訊
+			BufferedReader br = request.getReader(); // 讀取
+			StringBuilder result = new StringBuilder();
+			String line; // 儲存每次從BufferedReader讀取的行數據
+			while ((line = br.readLine()) != null) { // 讀取到的行不為空時會一直循環
+				result.append(line); // 拼接
+			}
+			System.out.println(result);
+			br.close();
+
 		}
 
 		else {
@@ -75,4 +87,3 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}
 }
-
