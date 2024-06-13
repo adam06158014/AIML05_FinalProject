@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 
 		// 判斷依據
 		// if((rightid.equals(id) && rightpasswd.equals(password))) {
-		if (isValidUser) {
+		if (isValidUser) { 
 			System.out.println("Login Successful");
 			System.out.println("userid:" + id); // server
 			System.out.println("userpasswd:" + password); // server
