@@ -8,99 +8,143 @@
 <link rel="stylesheet" href="./css/RobotController.css" />
 </head>
 
-
 <body>
 
 	<header>
 		<nav>
 			<ul>
-				<li>送貨申請</li>
-				<li>異常回報</li>
+				<a href="#"><li>送貨申請</li> <a href="#"><li>異常回報</li>
 			</ul>
 		</nav>
 		<div>
-			<a href="#"><i class="fa-solid fa-user"></i>登入</a>
+			<a href="index.jsp"><i class="fa-solid fa-user"></i>登出</a>
 		</div>
 	</header>
 	<h1>Proposal On-Call Delivery送貨機器人控制介面</h1>
 	<hr>
+
 	<!-- 收件人部門選擇 -->
-	<label for="department">收件人部門:</label>
-	<select id="department" name="department" onchange="loadRecipients()">
-		<option value="">請選擇部門</option>
-		<!-- 部門選項由Servlet填充 -->
-		<c:forEach items="${departments}" var="department">
-			<option value="${department.id}">${department.name}</option>
-		</c:forEach>
-	</select>
-	<br>
-	<br>
-	<!-- 收件人姓名選擇 -->
-	<label for="recipient">收件人姓名:</label>
-	<select id="recipient" name="recipient">
-		<option value="">請選擇姓名</option>
-		<!-- 收件人選項將由JavaScript生成 -->
-	</select>
-	<br>
-	<br>
-	<!-- 呼叫按鈕 -->
-	<button onclick="callBackend()">呼叫</button>
-	<!-- 機器人控制按鈕 -->
-	<button onclick="sendRobotCommand('forward')">Forward</button>
-	<button onclick="sendRobotCommand('stop')">Stop</button>
+	<form action="RobotController" id="robotForm" method="POST">
+		<!-- 寄件人部門選擇 -->
+		<label for="senderDepartment">寄件人部門:</label> <select
+			id="senderDepartment" name="senderDepartment">
+			<option value="">請選擇部門</option>
+			<option value="101">finance</option>
+			<option value="102">Human resource</option>
+			<option value="103">Research and development</option>
+			<option value="104">Sale</option>
+		</select>
+		<!-- 收件人部門選擇 -->
+		<label for="recipientDepartment">收件人部門:</label> <select
+			id="recipientDepartment" name="recipientDepartment">
+			<option value="">請選擇部門</option>
+			<option value="101">finance</option>
+			<option value="102">Human resource</option>
+			<option value="103">Research and development</option>
+			<option value="104">Sale</option>
+		</select>
+		<!-- 呼叫按鈕 -->
+		<button type="button" class="submit-btn" onclick="sendRobotCommand()">呼叫</button>
+
+	</form>
+	<button onclick="sendRobotControl('forward')">Forward</button>
+	<button onclick="sendRobotControl('stop')">Stop</button>
+	<!-- 顯示寄件人及收件人信息的表格 -->
+
+	<table border="1">
+		<h2>配送歷史記錄</h2>
+		<thead>
+			<tr>
+				<th>寄件人部門</th>
+				<th>收件人部門</th>
+				<th>時間</th>
+			</tr>
+		</thead>
+		<tbody id="deliveryInfo">
+			<!-- 這裡將填充配送信息 -->
+		</tbody>
+	</table>
+
 	<script>
-        // 當部門選擇改變時，加載相應的收件人
-        function loadRecipients() {
-            const department = document.getElementById('department').value;
-            fetch(`/api/recipients?department=${department}`)
-                .then(response => response.json())
-                .then(data => {
-                    const recipientSelect = document.getElementById('recipient');
-                    recipientSelect.innerHTML = '';
-                    data.forEach(recipient => {
-                        const option = document.createElement('option');
-                        option.value = recipient.id;
-                        option.text = recipient.name;
-                        recipientSelect.add(option);
-                    });
+        // 呼叫後端API，發送部門數據         
+        function sendRobotCommand() {
+            // 獲取寄件人部門和收件人部門的值
+            const senderDepartment = document.getElementById('senderDepartment').value;
+            const recipientDepartment = document.getElementById('recipientDepartment').value;
+
+            // 檢查是否選擇了寄件人部門和收件人部門
+            if (!senderDepartment || !recipientDepartment) {
+                alert('請選擇寄件人部門和收件人部門');
+                return;
+            }
+
+              
+            // 發送HTTP請求到後端的RobotController
+            fetch('./RobotController', {
+                method: "POST", // 使用POST方法
+                headers: new Headers({
+                    "Content-Type": "application/json", // 設置請求頭，表示發送JSON數據
+                }),
+                body: JSON.stringify({ // 將寄件人部門和收件人部門轉換為JSON字符串
+                    senderDepartment,
+                    recipientDepartment,
                 })
-                .catch(error => console.error('Error fetching recipients:', error));
-        }
-        // 呼叫後端API，發送部門和收件人數據
-        function callBackend() {
-            const department = document.getElementById('department').value;
-            const recipient = document.getElementById('recipient').value;
-            fetch('請填入API連結', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ department, recipient })
             })
-            .then(response => response.json())
+            .then(response => response.json()) // 將響應轉換為JSON
             .then(data => {
-                alert('成功呼叫後端: ' + data.message);
+                alert('成功呼叫後端: ' + data.message); // 顯示後端返回的消息
+                loadDeliveryHistory(); // 加載歷史記錄
             })
-            .catch(error => console.error('Error calling backend:', error));
+            .catch(error => console.error('Error calling backend:', error)); // 錯誤處理
         }
-        // 發送機器人控制命令           
-            function sendRobotCommand(robotCommand){
+     // 發送機器人控制命令 
+        function sendRobotControl(robotControl){
 
                 fetch('./RobotController', {
                     method: "POST",
                     headers: new Headers({
                         "Content-Type": "application/json",
                     }),
-                    body: robotCommand,
+                    body: robotControl,
                 })
                 .then()
                 .catch((error) => console.error("Error:", error))
                 .then((response) => console.log("Success:", response));
             }
+  
+        // 從後端加載歷史記錄
+        function loadDeliveryHistory() {
+            fetch('./RobotController', {
+                method: "GET", // 使用GET方法獲取歷史記錄
+                headers: new Headers({
+                    "Content-Type": "application/json", // 設置請求頭
+                })
+            })
+            .then(response => response.json()) // 將響應轉換為JSON
+            .then(data => {
+                const tbody = document.getElementById('deliveryInfo');
+                tbody.innerHTML = ''; // 清空表格
 
-        </script>
+                // 將每條歷史記錄添加到表格中
+                data.forEach(record => {
+                    const row = `
+                        <tr>
+                            <td>${record.senderDepartment}</td>
+                            <td>${record.recipientDepartment}</td>
+                            <td>${record.timestamp}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching delivery history:', error)); // 錯誤處理
+        }
+
+        // 每5秒自動更新表格內容
+        setInterval(loadDeliveryHistory, 5000);
+        
+        // 初始加載歷史記錄
+        window.onload = loadDeliveryHistory;
+    </script>
 </body>
-
-
-
 </html>
