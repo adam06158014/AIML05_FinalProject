@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -39,13 +40,13 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			String correct_ps = API_for_robot.findPasswordByEmployeeId(Integer.parseInt(id));
-			
+
 			if (correct_ps != null && correct_ps.equals(password)) {
 				isValidUser = true;
-				
+
 			}
 		} catch (Exception e) {
-			
+
 			e.printStackTrace(); // 捕捉並處理異常
 		}
 
@@ -58,9 +59,11 @@ public class LoginServlet extends HttpServlet {
 
 			// 調派請求,共享資料
 			request.setAttribute("userid", id); // 將正確的id存入
-			//request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
-			out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
-			out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>"); //2s後跳轉至RobotController
+			request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
+			// out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
+			// out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>");
+			// // 2s後跳轉至RobotController
+
 		}
 
 		else {
@@ -75,4 +78,3 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}
 }
-
