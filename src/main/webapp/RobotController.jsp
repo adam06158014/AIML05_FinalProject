@@ -13,8 +13,7 @@
 	<header>
 		<nav>
 			<ul>
-				<li>送貨申請</li>
-				<li>異常回報</li>
+				<a href="#"><li>送貨申請</li> <a href="#"><li>異常回報</li>
 			</ul>
 		</nav>
 		<div>
@@ -34,9 +33,7 @@
 			<option value="102">Human resource</option>
 			<option value="103">Research and development</option>
 			<option value="104">Sale</option>
-		</select><br>
-		<br>
-
+		</select>
 		<!-- 收件人部門選擇 -->
 		<label for="recipientDepartment">收件人部門:</label> <select
 			id="recipientDepartment" name="recipientDepartment">
@@ -45,16 +42,17 @@
 			<option value="102">Human resource</option>
 			<option value="103">Research and development</option>
 			<option value="104">Sale</option>
-		</select><br>
-		<br>
-
+		</select>
 		<!-- 呼叫按鈕 -->
 		<button type="button" class="submit-btn" onclick="sendRobotCommand()">呼叫</button>
-	</form>
 
+	</form>
+	<button onclick="sendRobotControl('forward')">Forward</button>
+	<button onclick="sendRobotControl('stop')">Stop</button>
 	<!-- 顯示寄件人及收件人信息的表格 -->
-	<h2>配送歷史記錄</h2>
+
 	<table border="1">
+		<h2>配送歷史記錄</h2>
 		<thead>
 			<tr>
 				<th>寄件人部門</th>
@@ -79,7 +77,8 @@
                 alert('請選擇寄件人部門和收件人部門');
                 return;
             }
-            
+
+              
             // 發送HTTP請求到後端的RobotController
             fetch('./RobotController', {
                 method: "POST", // 使用POST方法
@@ -88,7 +87,7 @@
                 }),
                 body: JSON.stringify({ // 將寄件人部門和收件人部門轉換為JSON字符串
                     senderDepartment,
-                    recipientDepartment
+                    recipientDepartment,
                 })
             })
             .then(response => response.json()) // 將響應轉換為JSON
@@ -98,10 +97,24 @@
             })
             .catch(error => console.error('Error calling backend:', error)); // 錯誤處理
         }
+     // 發送機器人控制命令 
+        function sendRobotControl(robotControl){
 
+                fetch('./RobotController', {
+                    method: "POST",
+                    headers: new Headers({
+                        "Content-Type": "application/json",
+                    }),
+                    body: robotControl,
+                })
+                .then()
+                .catch((error) => console.error("Error:", error))
+                .then((response) => console.log("Success:", response));
+            }
+  
         // 從後端加載歷史記錄
         function loadDeliveryHistory() {
-            fetch('./GetDeliveryHistory', {
+            fetch('./RobotController', {
                 method: "GET", // 使用GET方法獲取歷史記錄
                 headers: new Headers({
                     "Content-Type": "application/json", // 設置請求頭
