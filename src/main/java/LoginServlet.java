@@ -60,8 +60,8 @@ public class LoginServlet extends HttpServlet {
 			// 調派請求,共享資料
 			request.setAttribute("userid", id); // 將正確的id存入
 			request.getRequestDispatcher("RobotController.jsp").forward(request, response); // 用jsp檔案的畫面呈現
-			// out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
-			// out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>");
+			//out.write("<h3>Login Successful!<br> Redirecting to the other page...</h3>");
+			//out.write("<meta http-equiv='refresh' content='2;URL=RobotController.jsp'>");
 			// // 2s後跳轉至RobotController
 
 		}
