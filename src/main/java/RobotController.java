@@ -5,7 +5,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -22,19 +21,6 @@ public class RobotController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// Check if it's a logout request
-        String logout = request.getParameter("logout");
-        if (logout != null && logout.equals("true")) {
-            // Invalidate session if logout parameter is true
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
-            // Redirect to index.jsp after logout
-            response.sendRedirect("index.jsp");
-            return; // Exit doPost method after logout
-        }
-		
 		// 獲取前端JSON資訊
 		BufferedReader br = request.getReader(); // 讀取
 		StringBuilder result = new StringBuilder();
@@ -46,6 +32,7 @@ public class RobotController extends HttpServlet {
 
 		System.out.println(result);
 		br.close();
+		
 
 		try {
 			// Specify the new URL endpoint
