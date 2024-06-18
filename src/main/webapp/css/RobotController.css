@@ -1,111 +1,167 @@
 * {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* 導覽列設定 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
 header {
-	height: 70px;
-	/* 設置 header 的高度 */
-	border-bottom: 1px solid gray;
-	/* 設置 header 底部的邊框 */
-	border-bottom-left-radius: 20px;
-	/* 設置左下角的圓角 */
-	border-bottom-right-radius: 20px;
-	/* 設置右下角的圓角 */
-	display: flex;
-	/* 使用 flex 布局 */
-	justify-content: space-around;
-	/* 子元素在主軸上均勻分布 */
-	align-items: center;
-	/* 子元素在交叉軸上居中對齊 */
-	font-weight: 900;
-	/* 設置字體粗細 */
-	font-size: 20px;
-	/* 設置字體大小 */
-	margin: auto;
-	/* 設置自動外邊距 */
+    height: 70px;
+    border-bottom: 1px solid gray;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #fff;
 }
 
-/* MENU設定 */
 nav ul {
-	list-style-type: none;
-	/* 移除列表的點 */
-	display: flex;
-	/* 使用 flex 布局 */
-	color: #666;
-	/* 設置文字顏色 */
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
 }
 
 nav li {
-	padding: 0 20px;
-	/* 設置左右內邊距 */
-	border-right: 1px solid #666;
-	/* 設置右邊框 */
+    position: relative;
 }
 
-nav li:last-child {
-	border-right: 0;
-	/* 移除最後一個項目的右邊框 */
+nav a {
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
 }
 
-header a {
-	color: #666;
-	/* 設置連結的文字顏色 */
-	text-decoration: none;
-	/* 移除連結的下劃線 */
+nav a:hover {
+    background-color: #eee;
+    border-radius: 10px;
 }
 
-/* 表格樣式 */
-table {
-	width: 100%;
-	/* 設置表格寬度為 100% */
-	border-collapse: collapse;
-	/* 合併邊框 */
-	text-align: left;
-	/* 設置文字左對齊 */
+.logout a {
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-th, td {
-	padding: 10px;
-	/* 設置內邊距 */
-	border: 1px solid #ddd;
-	/* 設置邊框 */
-	text-align: left;
-	/* 設置文字左對齊 */
+.logout a:hover {
+    text-decoration: underline;
 }
 
-/* 按鈕樣式 */
-button {
-	padding: 20px;
-	/* 設置內邊距 */
-	margin: 10px;
-	/* 設置外邊距 */
-	font-size: 20px;
-	/* 設置字體大小 */
-}
-
-/* 頁腳樣式 */
-footer {
-	text-align: right;
-	/* 設置文字右對齊 */
-	background-color: #fcc89b;
-	/* 設置背景顏色 */
-	padding: 10px;
-	/* 設置內邊距 */
-}
-
-table,h2{
-	width: 70%;
-	margin-left: 20px;
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-	margin: 0;
-	text-align: center;
-	line-height: 100px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #444;
 }
 
 form {
-	line-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+form label {
+    flex: 1 1 200px;
+    font-weight: bold;
+    color: #444;
+}
+
+form select {
+    flex: 1 1 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    flex: 1 1 100px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.control-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.control-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.delivery-history {
+    margin-top: 20px;
+}
+
+.delivery-history h2 {
+    margin-bottom: 10px;
+    color: #444;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+footer {
+    text-align: right;
+    background-color: #fcc89b;
+    padding: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
