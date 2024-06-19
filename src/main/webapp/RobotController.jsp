@@ -168,7 +168,7 @@
 
     // 新增登出功能的函數
     function logout() {
-        fetch('./RobotController', {
+        fetch('./LogoutServlet', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
