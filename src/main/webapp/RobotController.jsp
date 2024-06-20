@@ -29,17 +29,17 @@
 			<label for="senderDepartment">寄件人部門:</label> <select
 				id="senderDepartment" name="senderDepartment">
 				<option value="">請選擇部門</option>
-				<option value="101">finance</option>
-				<option value="102">Human resource</option>
-				<option value="103">Research and development</option>
-				<option value="104">Sale</option>
+				<option value="A">[A] Finance</option>
+				<option value="B">[B] Human resource</option>
+				<option value="C">[C] Research and development</option>
+				<option value="D">[D] Sale</option>
 			</select> <label for="recipientDepartment">收件人部門:</label> <select
 				id="recipientDepartment" name="recipientDepartment">
 				<option value="">請選擇部門</option>
-				<option value="101">finance</option>
-				<option value="102">Human resource</option>
-				<option value="103">Research and development</option>
-				<option value="104">Sale</option>
+				<option value="A">[A] Finance</option>
+				<option value="B">[B] Human resource</option>
+				<option value="C">[C] Research and development</option>
+				<option value="D">[D] Sale</option>
 			</select>
 			<button type="button" class="submit-btn"
 				onclick="sendRobotCommand(event)">呼叫</button>
@@ -55,11 +55,10 @@
 			<div class="filter-options">
 				<select id="filterDepartment" onchange="filterTable()">
 					<option value="">全部部門</option>
-					<option value="finance">finance</option>
-					<option value="Human resource">Human resource</option>
-					<option value="Research and development">Research and
-						development</option>
-					<option value="Sale">Sale</option>
+					<option value="A">[A] Finance</option>
+					<option value="B">[B] Human resource</option>
+					<option value="C">[C] Research and development</option>
+					<option value="D">[D] Sale</option>
 				</select>
 			</div>
 			<table border="1">
