@@ -80,6 +80,7 @@
     function sendRobotCommand(event) {
         event.preventDefault(); // 防止表单提交
         
+        
         const senderDepartment = document.getElementById('senderDepartment').value;
         const recipientDepartment = document.getElementById('recipientDepartment').value;
         
@@ -93,7 +94,7 @@
             headers: new Headers({
                 "Content-Type": "application/json",
             }),
-            body: JSON.stringify({ senderDepartment, recipientDepartment })
+            body: JSON.stringify({command: 'forward' ,senderDepartment, recipientDepartment })
         })
         .then(response => response.json())
         .then(data => {
