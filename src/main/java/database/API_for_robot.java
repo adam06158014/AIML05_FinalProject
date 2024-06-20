@@ -159,15 +159,16 @@ public class API_for_robot {
 			return "Wrong employee_account.";
 		}
 	}
-	public  static String insertInformationsIntoHistory(String sending_department_name,String receiving_department_name) throws Exception{
+	public  static String insertInformationsIntoHistory(String sending_department_name,String receiving_department_name,String sending_time) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_databases","root","P@ssw0rd");
-		PreparedStatement preState = conn.prepareStatement("insert into history(sending_department_name,receiving_department_name)"
-				+ "values(?,?)");
+		PreparedStatement preState = conn.prepareStatement("insert into history(sending_department_name,receiving_department_name,sending_time)"
+				+ "values(?,?,?)");
 		preState.setString(1,sending_department_name);
 		preState.setString(2,receiving_department_name);
+		preState.setString(3,sending_time);
 		int rs = preState.executeUpdate();
 		if(rs>0) {
-			System.out.println("Inserted record with sending_department_name: " + sending_department_name + ", receiving_department_name: " + receiving_department_name + "sending_time: right now.");
+			System.out.println("Inserted record with sending_department_name: " + sending_department_name + ", receiving_department_name: " + receiving_department_name + ", sending_time:" + sending_time );
 		return "successfully";
 		}
 		else
