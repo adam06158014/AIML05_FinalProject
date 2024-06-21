@@ -77,32 +77,36 @@
 	</main>
 	<script>
     // 呼叫送貨機器人指令函數
-    function sendRobotCommand(event) {
-        event.preventDefault(); // 防止表单提交
-        
-        
-        const senderDepartment = document.getElementById('senderDepartment').value;
-        const recipientDepartment = document.getElementById('recipientDepartment').value;
-        
-        if (!senderDepartment || !recipientDepartment) {
-            alert('請選擇寄件人部門和收件人部門');
-            return;
-        }
-        
-        fetch('./RobotController', {
-            method: "POST",
-            headers: new Headers({
-                "Content-Type": "application/json",
-            }),
-            body: JSON.stringify({command: 'forward' ,senderDepartment, recipientDepartment })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('成功呼叫後端: ' + data.message);
-            loadDeliveryHistory();
-        })
-        .catch(error => console.error('呼叫後端錯誤:', error));
+	function sendRobotCommand(event) {
+    event.preventDefault(); // 防止表单提交
+    
+    const senderDepartment = document.getElementById('senderDepartment').value;
+    const recipientDepartment = document.getElementById('recipientDepartment').value;
+    
+    if (!senderDepartment || !recipientDepartment) {
+        alert('請選擇寄件人部門和收件人部門');
+        return;
     }
+    
+    const formData = new URLSearchParams();
+    formData.append('command', 'forward');
+    formData.append('senderDepartment', senderDepartment);
+    formData.append('recipientDepartment', recipientDepartment);
+    
+    fetch('./RobotController', {
+        method: "POST",
+        headers: new Headers({
+            "Content-Type": "application/x-www-form-urlencoded",
+        }),
+        body: formData.toString()
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('成功呼叫後端: ' + data.message);
+        loadDeliveryHistory();
+    })
+    .catch(error => console.error('呼叫後端錯誤:', error));
+}
 
     // 控制機器人移動指令函數
     function sendRobotControl(robotControl) {
