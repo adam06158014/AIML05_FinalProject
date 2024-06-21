@@ -1,0 +1,13 @@
+{
+    "_comment_dept_letters": "Dept 部門英文字母代號(A/B/C/D), 對應InceptionV3模型可辨識的1000個Label(其中4種)",
+    "A":"tiger",
+    "B":"lion",
+    "C":"leopard",
+    "D":"tabby",
+    "_comment_state": "用來記錄運送狀態, 共分為3種: MoveToSender / MoveToRecipient / OnCall",
+    "state":"OnCall",
+    "_comment_sender_dept":"紀錄該次sender_dept資料, 任務結束時清除",
+    "sender_dept":"",
+    "_comment_recipient_dept":"紀錄該次任務recipient_dept資料, 任務結束時清除",
+    "recipient_dept":""
+}
