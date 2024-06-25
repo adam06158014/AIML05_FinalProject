@@ -48,10 +48,10 @@ public class API_for_robot {
 			return "This employee doesn't exists.";
 		}
 	}
-	public  static String findInformationsByDepartmentId(int department_id) throws Exception{
+	public  static String findInformationsByDepartmentId(String department_id) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_databases","root","P@ssw0rd");
 		PreparedStatement preState = conn.prepareStatement("select * from departments where department_id = ?");
-		preState.setInt(1,department_id);
+		preState.setString(1,department_id);
 		ResultSet rs = preState.executeQuery();
 		if(rs.next()) {
 			System.out.print(rs.getString(1)+",");
@@ -127,11 +127,11 @@ public class API_for_robot {
 		else
 			return "error";
 	}
-	public  static String insertInformationsIntoDepartments(int department_id,String department_name) throws Exception{
+	public  static String insertInformationsIntoDepartments(String department_id,String department_name) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_databases","root","P@ssw0rd");
 		PreparedStatement preState = conn.prepareStatement("insert into departments(department_id,department_name)"
 				+ "values(?,?)");
-		preState.setInt(1,department_id);
+		preState.setString(1,department_id);
 		preState.setString(2,department_name);
 		int rs = preState.executeUpdate();
 		if(rs >0) {
@@ -170,6 +170,52 @@ public class API_for_robot {
 		if(rs>0) {
 			System.out.println("Inserted record with sending_department_name: " + sending_department_name + ", receiving_department_name: " + receiving_department_name + ", sending_time:" + sending_time );
 		return "successfully";
+		}
+		else
+			return "error";
+	}
+	public  static String findHistoryBySendingDepartmentName(String department_id) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_databases","root","P@ssw0rd");
+		PreparedStatement preState = conn.prepareStatement("select sending_department_name,receiving_department_name,sending_time from history\n"
+				+ "join departments\n"
+				+ "on history.sending_department_name = departments.department_id\n"
+				+ "where department_id = ?;");
+		preState.setString(1,department_id);
+		ResultSet rs = preState.executeQuery();
+		if(rs.next()) {
+				StringBuilder result = new StringBuilder();
+				String sendingDepartmentName = rs.getString("sending_department_name");
+	            String receivingDepartmentName = rs.getString("receiving_department_name");
+	            String sendingTime = rs.getString("sending_time");
+	            
+	            result.append("Sending Department Name: ").append(sendingDepartmentName).append(", ")
+	                  .append("Receiving Department Name: ").append(receivingDepartmentName).append(", ")
+	                  .append("Sending Time: ").append(sendingTime).append("\n");
+	            
+	            return result.toString();
+		}
+		else
+			return "error";
+	}
+	public  static String findHistoryByReceivingDepartmentName(String department_id) throws Exception{
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_databases","root","P@ssw0rd");
+		PreparedStatement preState = conn.prepareStatement("select sending_department_name,receiving_department_name,sending_time from history\n"
+				+ "join departments\n"
+				+ "on history.receiving_department_name = departments.department_id\n"
+				+ "where department_id = ?;");
+		preState.setString(1,department_id);
+		ResultSet rs = preState.executeQuery();
+		if(rs.next()) {
+				StringBuilder result = new StringBuilder();
+				String sendingDepartmentName = rs.getString("sending_department_name");
+	            String receivingDepartmentName = rs.getString("receiving_department_name");
+	            String sendingTime = rs.getString("sending_time");
+	            
+	            result.append("Sending Department Name: ").append(sendingDepartmentName).append(", ")
+	                  .append("Receiving Department Name: ").append(receivingDepartmentName).append(", ")
+	                  .append("Sending Time: ").append(sendingTime).append("\n");
+	            
+	            return result.toString();
 		}
 		else
 			return "error";
