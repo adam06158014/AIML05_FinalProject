@@ -1,0 +1,7 @@
+{
+    "_comment_dept_letters": "Dept 部門英文字母代號(A/B/C/D), 對應InceptionV3模型可辨識的1000個種類(其中4種)",
+    "A":"tiger",
+    "B":"lion",
+    "C":"leopard",
+    "D":"tabby"
+}
