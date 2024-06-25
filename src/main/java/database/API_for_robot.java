@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class API_for_robot {
-	static String IP = "192.168.71.32";
+	static String IP = "localhost";
 	public  static String findInformationsByEmployeeId(int employee_id) throws Exception{
 		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
 		PreparedStatement preState = conn.prepareStatement("select * from employees where employee_id = ?");
