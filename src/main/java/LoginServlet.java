@@ -12,13 +12,6 @@ import database.API_for_robot;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-//音檔0415下午 From 00:40 (file:testresponse.java) 
-//參考老師的file:TestLogin.java
-
-//先手動設定正確的id & passwd--->到時要連資料庫核對
-//	String rightid = "aaa";
-//	String rightpasswd = "1234";
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { // doPost一定要有HTML File
 
@@ -77,3 +70,10 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}
 }
+
+//音檔0415下午 From 00:40 (file:testresponse.java) 
+//參考老師的file:TestLogin.java
+
+//先手動設定正確的id & passwd--->到時要連資料庫核對
+//	String rightid = "aaa";
+//	String rightpasswd = "1234";
