@@ -1,15 +1,18 @@
+/* 設置所有元素的邊距和填充為0，並將box-sizing設置為border-box */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 設置body的字體，背景顏色和文字顏色 */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
 }
 
+/* 設置header的高度，邊框，圓角，對齊方式和背景顏色 */
 header {
     height: 70px;
     border-bottom: 1px solid gray;
@@ -22,6 +25,7 @@ header {
     background-color: #fff;
 }
 
+/* 設置登出連結的樣式和懸停效果 */
 .logout a {
     color: #666;
     text-decoration: none;
@@ -32,6 +36,7 @@ header {
     text-decoration: underline;
 }
 
+/* 設置主要內容區域的最大寬度，邊距，填充，背景顏色，圓角和陰影 */
 main {
     max-width: 1200px;
     margin: 20px auto;
@@ -41,6 +46,7 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 設置h1標題的對齊方式，邊距，字體大小和顏色 */
 h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -48,6 +54,7 @@ h1 {
     color: #444;
 }
 
+/* 設置表單的佈局，間距和對齊方式 */
 form {
     display: flex;
     flex-wrap: wrap;
@@ -57,12 +64,14 @@ form {
     margin-bottom: 20px;
 }
 
+/* 設置表單標籤的字重和顏色 */
 form label {
     flex: 1 1 200px;
     font-weight: bold;
     color: #444;
 }
 
+/* 設置下拉選單的填充，邊框和圓角 */
 form select {
     flex: 1 1 200px;
     padding: 10px;
@@ -70,6 +79,7 @@ form select {
     border-radius: 5px;
 }
 
+/* 設置提交按鈕的填充，背景顏色，文字顏色，邊框和圓角 */
 .submit-btn {
     flex: 1 1 100px;
     padding: 10px 20px;
@@ -80,10 +90,12 @@ form select {
     cursor: pointer;
 }
 
+/* 設置提交按鈕的懸停效果 */
 .submit-btn:hover {
     background-color: #0056b3;
 }
 
+/* 設置控制按鈕區域的佈局和間距 */
 .control-buttons {
     display: flex;
     justify-content: center;
@@ -91,6 +103,7 @@ form select {
     margin-bottom: 20px;
 }
 
+/* 設置控制按鈕的填充，字體大小，邊框，圓角和背景顏色 */
 .control-buttons button {
     padding: 10px 20px;
     font-size: 16px;
@@ -101,39 +114,47 @@ form select {
     color: #fff;
 }
 
+/* 設置控制按鈕的懸停效果 */
 .control-buttons button:hover {
     background-color: #0056b3;
 }
 
+/* 設置配送歷史區域的邊距 */
 .delivery-history {
     margin-top: 20px;
 }
 
+/* 設置配送歷史標題的邊距和顏色 */
 .delivery-history h2 {
     margin-bottom: 10px;
     color: #444;
 }
 
+/* 設置表格的寬度和邊框樣式 */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
+/* 設置表格單元格的填充，邊框和對齊方式 */
 th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
 }
 
+/* 設置表頭的背景顏色 */
 th {
     background-color: #f4f4f4;
 }
 
+/* 設置表格偶數行的背景顏色 */
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+/* 設置頁腳的對齊方式，背景顏色，填充，邊框和圓角 */
 footer {
     text-align: right;
     background-color: #fcc89b;
