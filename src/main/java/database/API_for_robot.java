@@ -7,9 +7,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class API_for_robot {
-	static String IP = "localhost";
+	
+	static final String IP = "jdbc:mysql://localhost:3306/project_databases";
+	static final String ACCOUNT = "root";
+	static final String PASSWORD = "P@ssw0rd";
+	
 	public  static String findInformationsByEmployeeId(int employee_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select * from employees where employee_id = ?");
 		preState.setInt(1,employee_id);
 		ResultSet rs = preState.executeQuery();
@@ -30,7 +34,7 @@ public class API_for_robot {
 		}
 	}
 	public  static String findInformationsByEmployeeName(String employee_name) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select * from employees where employee_name = ?");
 		preState.setString(1,employee_name);
 		ResultSet rs = preState.executeQuery();
@@ -50,7 +54,7 @@ public class API_for_robot {
 		}
 	}
 	public  static String findInformationsByDepartmentId(String department_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select * from departments where department_id = ?");
 		preState.setString(1,department_id);
 		ResultSet rs = preState.executeQuery();
@@ -66,7 +70,7 @@ public class API_for_robot {
 		}
 	}
 	public  static String findAccountByEmployeeId(int employee_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select employee_account from accounts_passwords where employee_id = ?");
 		preState.setInt(1,employee_id);
 		ResultSet rs = preState.executeQuery();
@@ -81,7 +85,7 @@ public class API_for_robot {
 		}
 	}
 	public  static String findPasswordByEmployeeId(int employee_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select employee_password from accounts_passwords where employee_id = ?");
 		preState.setInt(1,employee_id);
 		ResultSet rs = preState.executeQuery();
@@ -96,7 +100,7 @@ public class API_for_robot {
 		}
 	}
 	public  static String insertInformationsIntoEmployees(int employee_id,String employee_name,int department_id,String position,String mail,String phone) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("insert into employees(employee_id,employee_name,department_id,position,mail,phone)"
 				+ "values(?,?,?,?,?,?)");
 		preState.setInt(1,employee_id);
@@ -114,7 +118,7 @@ public class API_for_robot {
 			return "error";	
 	}
 	public  static String insertInformationsIntoAccountsPasswords(int employee_id,String employee_account,String employee_password) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("insert into accounts_passwords(employee_id,employee_account,employee_password)"
 				+ "values(?,?,?)");
 		preState.setInt(1,employee_id);
@@ -129,7 +133,7 @@ public class API_for_robot {
 			return "error";
 	}
 	public  static String insertInformationsIntoDepartments(String department_id,String department_name) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("insert into departments(department_id,department_name)"
 				+ "values(?,?)");
 		preState.setString(1,department_id);
@@ -143,7 +147,7 @@ public class API_for_robot {
 			return "error";
 	}
 	public  static String employeeAccountToCheckPassword(String employee_account) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select employee_password from accounts_passwords\r\n"
 				+ "join employees\r\n"
 				+ "on accounts_passwords.employee_id = employees.employee_id\r\n"
@@ -161,7 +165,7 @@ public class API_for_robot {
 		}
 	}
 	public  static String insertInformationsIntoHistory(String sending_department_name,String receiving_department_name,String sending_time) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("insert into history(sending_department_name,receiving_department_name,sending_time)"
 				+ "values(?,?,?)");
 		preState.setString(1,sending_department_name);
@@ -175,51 +179,43 @@ public class API_for_robot {
 		else
 			return "error";
 	}
-	public  static String findHistoryBySendingDepartmentName(String department_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+	public  static String[] findHistoryBySendingDepartmentName(String department_id) throws Exception{
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select sending_department_name,receiving_department_name,sending_time from history\n"
 				+ "join departments\n"
 				+ "on history.sending_department_name = departments.department_id\n"
 				+ "where department_id = ?;");
 		preState.setString(1,department_id);
 		ResultSet rs = preState.executeQuery();
-		if(rs.next()) {
-				StringBuilder result = new StringBuilder();
+		String[] historyList = new String[3];
+		while(rs.next()) {
 				String sendingDepartmentName = rs.getString("sending_department_name");
 	            String receivingDepartmentName = rs.getString("receiving_department_name");
 	            String sendingTime = rs.getString("sending_time");
-	            
-	            result.append("Sending Department Name: ").append(sendingDepartmentName).append(", ")
-	                  .append("Receiving Department Name: ").append(receivingDepartmentName).append(", ")
-	                  .append("Sending Time: ").append(sendingTime).append("\n");
-	            
-	            return result.toString();
+	            historyList[0] = sendingDepartmentName;
+	            historyList[1] = receivingDepartmentName;
+	            historyList[2] = sendingTime;      
 		}
-		else
-			return "error";
+		return historyList;
 	}
-	public  static String findHistoryByReceivingDepartmentName(String department_id) throws Exception{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/project_databases","root","P@ssw0rd");
+	public  static String[] findHistoryByReceivingDepartmentName(String department_id) throws Exception{
+		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select sending_department_name,receiving_department_name,sending_time from history\n"
 				+ "join departments\n"
 				+ "on history.receiving_department_name = departments.department_id\n"
 				+ "where department_id = ?;");
 		preState.setString(1,department_id);
 		ResultSet rs = preState.executeQuery();
-		if(rs.next()) {
-				StringBuilder result = new StringBuilder();
+		String[] historyList = new String[3];
+		while(rs.next()) {
 				String sendingDepartmentName = rs.getString("sending_department_name");
 	            String receivingDepartmentName = rs.getString("receiving_department_name");
 	            String sendingTime = rs.getString("sending_time");
-	            
-	            result.append("Sending Department Name: ").append(sendingDepartmentName).append(", ")
-	                  .append("Receiving Department Name: ").append(receivingDepartmentName).append(", ")
-	                  .append("Sending Time: ").append(sendingTime).append("\n");
-	            
-	            return result.toString();
+	            historyList[0] = sendingDepartmentName;
+	            historyList[1] = receivingDepartmentName;
+	            historyList[2] = sendingTime;
 		}
-		else
-			return "error";
+		return historyList;
 	}
 	public static void main(String[] args) throws Exception{  
 		
