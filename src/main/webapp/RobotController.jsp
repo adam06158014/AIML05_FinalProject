@@ -9,13 +9,7 @@
 </head>
 <body>
 	<header>
-		<!-- 頁首區塊，包含導航選單和登出按鈕 -->
-		<nav>
-			<ul>
-				<li><a href="#">送貨申請</a></li>
-				<li><a href="#">異常回報</a></li>
-			</ul>
-		</nav>
+		<!-- 頁首區塊登出按鈕 -->
 		<div class="logout">
 			<a href="#" onclick="logout()"><i class="fa-solid fa-user"></i>
 				登出</a>
