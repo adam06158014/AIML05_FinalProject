@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class API_for_robot {
@@ -179,7 +180,7 @@ public class API_for_robot {
 		else
 			return "error";
 	}
-	public  static String[] findHistoryBySendingDepartmentName(String department_id) throws Exception{
+	public  static ArrayList<String[]> findHistoryBySendingDepartmentName(String department_id) throws Exception{
 		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select sending_department_name,receiving_department_name,sending_time from history\n"
 				+ "join departments\n"
@@ -187,18 +188,21 @@ public class API_for_robot {
 				+ "where department_id = ?;");
 		preState.setString(1,department_id);
 		ResultSet rs = preState.executeQuery();
-		String[] historyList = new String[3];
-		while(rs.next()) {
-				String sendingDepartmentName = rs.getString("sending_department_name");
-	            String receivingDepartmentName = rs.getString("receiving_department_name");
-	            String sendingTime = rs.getString("sending_time");
-	            historyList[0] = sendingDepartmentName;
-	            historyList[1] = receivingDepartmentName;
-	            historyList[2] = sendingTime;      
-		}
-		return historyList;
+		ArrayList<String[]> historyList = new ArrayList<>();
+	    while (rs.next()) {
+	        String sendingDepartmentName = rs.getString("sending_department_name");
+	        String receivingDepartmentName = rs.getString("receiving_department_name");
+	        String sendingTime = rs.getString("sending_time");
+	        String[] record = new String[3];
+	        record[0] = sendingDepartmentName;
+	        record[1] = receivingDepartmentName;
+	        record[2] = sendingTime;
+	        historyList.add(record);
+	    }
+	    
+	    return historyList;
 	}
-	public  static String[] findHistoryByReceivingDepartmentName(String department_id) throws Exception{
+	public  static ArrayList<String[]> findHistoryByReceivingDepartmentName(String department_id) throws Exception{
 		Connection conn = DriverManager.getConnection(IP,ACCOUNT,PASSWORD);
 		PreparedStatement preState = conn.prepareStatement("select sending_department_name,receiving_department_name,sending_time from history\n"
 				+ "join departments\n"
@@ -206,16 +210,19 @@ public class API_for_robot {
 				+ "where department_id = ?;");
 		preState.setString(1,department_id);
 		ResultSet rs = preState.executeQuery();
-		String[] historyList = new String[3];
-		while(rs.next()) {
-				String sendingDepartmentName = rs.getString("sending_department_name");
-	            String receivingDepartmentName = rs.getString("receiving_department_name");
-	            String sendingTime = rs.getString("sending_time");
-	            historyList[0] = sendingDepartmentName;
-	            historyList[1] = receivingDepartmentName;
-	            historyList[2] = sendingTime;
-		}
-		return historyList;
+		ArrayList<String[]> historyList = new ArrayList<>();
+	    while (rs.next()) {
+	        String sendingDepartmentName = rs.getString("sending_department_name");
+	        String receivingDepartmentName = rs.getString("receiving_department_name");
+	        String sendingTime = rs.getString("sending_time");
+	        String[] record = new String[3];
+	        record[0] = sendingDepartmentName;
+	        record[1] = receivingDepartmentName;
+	        record[2] = sendingTime;
+	        historyList.add(record);
+	    }
+	    
+	    return historyList;
 	}
 	public static void main(String[] args) throws Exception{  
 		
