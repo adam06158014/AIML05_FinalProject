@@ -46,14 +46,7 @@
 		<!-- 配送歷史記錄區域 -->
 		<section class="delivery-history">
 			<h2>配送歷史記錄</h2>
-			<div class="filter-options">
-				<select id="filterDepartment" onchange="filterTable()">
-					<option value="">全部部門</option>
-					<option value="A">[A] Finance</option>
-					<option value="B">[B] Human resource</option>
-					<option value="C">[C] Research and development</option>
-					<option value="D">[D] Sale</option>
-				</select>
+			<div class="filter-options" onchange="filterTable()" >
 			</div>
 			<table border="1">
 				<thead>
@@ -70,6 +63,8 @@
 		</section>
 	</main>
 	<script>
+	filterTable()
+	
     // 呼叫送貨機器人指令函數
     function sendRobotCommand(event) {
         event.preventDefault(); // 防止表单提交
@@ -138,27 +133,45 @@
         .catch(error => console.error('獲取配送歷史記錄錯誤:', error));
     }
 
-    // 篩選配送歷史記錄表格函數
-    function filterTable() {
-        const filter = document.getElementById('filterDepartment').value.toLowerCase();
-        const table = document.getElementById('deliveryInfo');
-        const rows = table.getElementsByTagName('tr');
-        for (let i = 0; i < rows.length; i++) {
-            const senderCell = rows[i].getElementsByTagName('td')[0];
-            const recipientCell = rows[i].getElementsByTagName('td')[1];
-            const senderDepartment = senderCell ? senderCell.innerText.toLowerCase() : '';
-            const recipientDepartment = recipientCell ? recipientCell.innerText.toLowerCase() : '';
-            if (filter === '' || senderDepartment.includes(filter) || recipientDepartment.includes(filter)) {
-                rows[i].style.display = '';
-            } else {
-                rows[i].style.display = 'none';
-            }
-        }
-    }
+ // 篩選配送歷史記錄表格函數
+   function filterTable(departmentId) {
+    fetch('./History?departmentId=' + departmentId) // 直接使用傳遞進來的部門ID作為參數
+        .then(response => response.json()) // 解析JSON格式的響應
+        .then(data => {
+            const tableBody = document.getElementById('deliveryInfo');
+            tableBody.innerHTML = ''; // 清空表格內容
+
+            // 遍歷返回的每條記錄，創建新的行並插入表格
+            data.forEach(record => {
+                const row = document.createElement('tr');
+
+                // 寄件人部門列
+                const senderDepartmentCell = document.createElement('td');
+                senderDepartmentCell.textContent = record.sending_department_name;
+                row.appendChild(senderDepartmentCell);
+
+                // 收件人部門列
+                const recipientDepartmentCell = document.createElement('td');
+                recipientDepartmentCell.textContent = record.receiving_department_name;
+                row.appendChild(recipientDepartmentCell);
+
+                // 時間列
+                const timeCell = document.createElement('td');
+                timeCell.textContent = record.sending_time;
+                row.appendChild(timeCell);
+
+                // 將新行插入表格
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
 
     // 設置定時加載配送歷史記錄
-    setInterval(loadDeliveryHistory, 5000);
-    window.onload = loadDeliveryHistory;
+    setInterval(filterTable, 5000);
+    window.onload = filterTable;
 
     // 新增登出功能的函數
     function logout() {
