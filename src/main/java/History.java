@@ -16,14 +16,22 @@ public class History extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String departmentId = request.getParameter("departmentId");
+		String department_id = request.getParameter("department_id");
 		// 使用ArrayList來存儲結果
         ArrayList<String[]> historyResult = new ArrayList<>();
         try {
-            historyResult = API_for_robot.findHistoryBySendingDepartmentName("A");
+            if (department_id != null && !department_id.isEmpty()) {
+                historyResult = API_for_robot.findHistoryBySendingDepartmentName(department_id);
+            } else {
+                String[] departments = {"A", "B", "C", "D"};
+                for (String dept : departments) {
+                    historyResult.addAll(API_for_robot.findHistoryBySendingDepartmentName(dept));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         
         // 打印結果
         for(String[] record: historyResult) {
