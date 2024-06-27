@@ -13,9 +13,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import database.API_for_robot;
+
+import java.util.ArrayList;
 import java.util.Date;
-
-
+import java.util.List;
 
 @WebServlet("/RobotController")
 public class RobotController extends HttpServlet {
@@ -36,7 +37,7 @@ public class RobotController extends HttpServlet {
 		System.out.println(result);
 		br.close();
 
-		this.postToRobot("192.168.93.31", "5000", "/data", result.toString());
+		this.postToRobot("192.168.71.31", "5000", "/data", result.toString());
 
 		// input to db
 		// 按逗號分割字串
@@ -67,6 +68,8 @@ public class RobotController extends HttpServlet {
 			response.getWriter().write("Error: Invalid input format");
 		}
 	}
+
+	
 
 	private String extractValue(String part) {
 		// 去除无关字符，仅提取冒号后面的字母部分
