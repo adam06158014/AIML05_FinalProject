@@ -114,7 +114,7 @@
 
     // 加載配送歷史記錄函數
     function loadDeliveryHistory() {
-        fetch('./RobotController', {
+        fetch('./History', {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
