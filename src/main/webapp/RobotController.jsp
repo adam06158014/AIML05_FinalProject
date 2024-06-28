@@ -108,36 +108,43 @@
     }
 
     // 加載配送歷史記錄函數
-    function loadDeliveryHistory() {
-        fetch('./History', {
-            method: "GET",
-            headers: new Headers({
-                "Content-Type": "application/json",
-            })
+    // 加載配送歷史記錄函數
+function loadDeliveryHistory() {
+    fetch('./History', {
+        method: "GET",
+        headers: new Headers({
+            "Content-Type": "application/json",
         })
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.getElementById('deliveryInfo');
-            tbody.innerHTML = '';
-            data.forEach(record => {
-                const row = `
-                    <tr>
-                        <td>${record.senderDepartment}</td>
-                        <td>${record.recipientDepartment}</td>
-                        <td>${record.timestamp}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
-        })
-        .catch(error => console.error('獲取配送歷史記錄錯誤:', error));
-    }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 將數據按時間從新到舊排序
+        data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
- // 篩選配送歷史記錄表格函數
-   function filterTable(departmentId) {
+        const tbody = document.getElementById('deliveryInfo');
+        tbody.innerHTML = '';
+        data.forEach(record => {
+            const row = `
+                <tr>
+                    <td>${record.senderDepartment}</td>
+                    <td>${record.recipientDepartment}</td>
+                    <td>${record.timestamp}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    })
+    .catch(error => console.error('獲取配送歷史記錄錯誤:', error));
+}
+
+// 篩選配送歷史記錄表格函數
+function filterTable(departmentId) {
     fetch('./History?departmentId=' + departmentId) // 直接使用傳遞進來的部門ID作為參數
         .then(response => response.json()) // 解析JSON格式的響應
         .then(data => {
+            // 將數據按時間從新到舊排序
+            data.sort((a, b) => new Date(b.sending_time) - new Date(a.sending_time));
+
             const tableBody = document.getElementById('deliveryInfo');
             tableBody.innerHTML = ''; // 清空表格內容
 
@@ -169,28 +176,6 @@
         });
 }
 
-    // 設置定時加載配送歷史記錄
-    setInterval(filterTable, 5000);
-    window.onload = filterTable;
-
-    // 新增登出功能的函數
-    function logout() {
-        fetch('./LogoutServlet', {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-            	window.location.href = 'index.jsp'; // 登出成功後重定向到登錄頁面
-                alert('登出成功');
-            }else {
-                alert('登出失敗');
-            }
-        })
-        .catch(error => console.error('登出錯誤:', error));
-    }
 </script>
 </body>
 </html>
